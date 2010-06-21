@@ -67,10 +67,11 @@ diff -up -x '.*' ../../dwm-upstream//dwm.c .//dwm.c
  				c->tags |= r->tags;
  				for(m = mons; m && m->num != r->monitor; m = m->next);
  				if(m)
-@@ -815,6 +819,15 @@ expose(XEvent *e) {
+@@ -815,6 +819,16 @@ expose(XEvent *e) {
  		drawbar(m);
  }
- 
+
++void 
 +window_opacity_set(Client *c, double opacity) {
 +	if(opacity >= 0 && opacity <= 1) {
 +		unsigned long real_opacity[] = { opacity * 0xffffffff };

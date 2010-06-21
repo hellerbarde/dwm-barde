@@ -5,6 +5,8 @@ include config.mk
 
 SRC = dwm.c
 OBJ = ${SRC:.c=.o}
+PATCHCMD = patch -Np1 -i
+PATCHDIR = patches
 
 all: options dwm
 
@@ -25,6 +27,9 @@ config.h:
 	@cp config.def.h $@
 
 dwm: ${OBJ}
+	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-1-pango.diff"
+	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
+	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
 	@echo CC -o $@
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
 
