@@ -17,6 +17,9 @@ options:
 	@echo "CC       = ${CC}"
 
 .c.o:
+	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-1-pango.diff"
+	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
+	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
 	@echo CC $<
 	@${CC} -c ${CFLAGS} $<
 
@@ -27,9 +30,6 @@ config.h:
 	@cp config.def.h $@
 
 dwm: ${OBJ}
-	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-1-pango.diff"
-	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
-	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
 	@echo CC -o $@
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
 
