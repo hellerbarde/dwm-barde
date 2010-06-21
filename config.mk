@@ -4,8 +4,8 @@ VERSION = 5.8.2
 # Customize below to fit your system
 
 # paths
-PREFIX = /usr/local
-MANPREFIX = ${PREFIX}/share/man
+PREFIX = /home/phil
+MANPREFIX = ${PREFIX}/.local/man
 
 X11INC = /usr/X11R6/include
 X11LIB = /usr/X11R6/lib
