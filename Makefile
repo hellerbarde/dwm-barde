@@ -17,9 +17,6 @@ options:
 	@echo "CC       = ${CC}"
 
 .c.o:
-	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-1-pango.diff"
-	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
-	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
 	@echo CC $<
 	@${CC} -c ${CFLAGS} $<
 
@@ -45,6 +42,11 @@ dist: clean
 	@tar -cf dwm-${VERSION}.tar dwm-${VERSION}
 	@gzip dwm-${VERSION}.tar
 	@rm -rf dwm-${VERSION}
+
+patch:
+	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-1-pango.diff"
+	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
+	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
 
 install: all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
