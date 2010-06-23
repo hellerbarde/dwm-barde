@@ -1,26 +1,27 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-#define NUMCOLORS         4             // need at least 3
+#define NUMCOLORS 4 // need at least 3
 static const char colors[NUMCOLORS][ColLast][8] = {
-// border   foreground  background
-{ "#cccccc", "#000000", "#cccccc" },  // 0 = normal
-{ "#0066ff", "#ffffff", "#0066ff" },  // 1 = selected
-{ "#0066ff", "#0066ff", "#ffffff" },  // 2 = urgent/warning
-{ "#ff0000", "#ffffff", "#ff0000" },  // 3 = error
-// add more here
+	// border   foreground  background
+	{ "#404040", "#dddddd", "#404040" },  // 0 = normal
+	{ "#222222", "#222222", "#4161b7" },  // 1 = selected
+	{ "#0066ff", "#0066ff", "#ffffff" },  // 2 = urgent/warning
+	{ "#ff0000", "#ffffff", "#ff0000" },  // 3 = error
+	
+	// add more here
 };
-static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
+static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const double shade     = 0.6;      /* opacity of unfocussed clients */
+static const double shade           = 0.7;      /* opacity of unfocussed clients */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 static const Bool focusonclick      = True;     /* Change focus only on click */
 
 /* tagging */
 #define MAX_TAGLEN 16
-static char tags[][MAX_TAGLEN] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static char tags[][MAX_TAGLEN] = { "prog", "web", "term", "chat", "file", "music", "", "8", "9" };
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor   opacity */
@@ -29,9 +30,12 @@ static const Rule rules[] = {
 	{ "URxvt",    NULL,       NULL,       0,            False,       -1,       0.95  },
 };
 
+/* includes */
+#include "push.c"
+
 /* layout(s) */
-static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const float mfact      = 0.6; /* factor of master area size [0.05..0.95] */
+static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -41,7 +45,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -53,32 +57,41 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
-static const char *termcmd[]  = { "uxterm", NULL };
+static const char *termcmd[]  = { "urxvt", NULL };
+static const char *browsercmd[]  = { "chromium-browser", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_o,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_j,      pushdown,       {0} },
+	{ MODKEY|ControlMask,           XK_k,      pushup,         {0} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
+	{ MODKEY,                       XK_space,  togglefloating, {0} },
+
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_n,      nametag,        {0} },
+	{ MODKEY,                       XK_comma,  focusmon,       {.i  = -1 } },
+	{ MODKEY,                       XK_period, focusmon,       {.i  = +1 } },
+	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i  = -1 } },
+	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i  = +1 } },
+
+	{ MODKEY,                       XK_n,      nametag,       {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -88,7 +101,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_q,      quit,          {0} },
 };
 
 /* button definitions */
