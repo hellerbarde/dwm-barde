@@ -44,7 +44,6 @@ dist: clean
 	@rm -rf dwm-${VERSION}
 
 patch:
-	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-1-pango.diff"
 	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
 	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
 
