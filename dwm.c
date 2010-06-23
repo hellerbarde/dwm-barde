@@ -832,7 +832,7 @@ enternotify(XEvent *e) {
 		return;
 	if (!focusonclick) {
 		if((m = wintomon(ev->window)) && m != selmon) {
-			unfocus(selmon->sel);
+			unfocus(selmon->sel, True);
 			selmon = m;
 		}
 		if((c = wintoclient(ev->window)))
