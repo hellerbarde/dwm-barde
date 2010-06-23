@@ -58,7 +58,7 @@
 enum { CurNormal, CurResize, CurMove, CurLast };        /* cursor */
 enum { ColBorder, ColFG, ColBG, ColLast };              /* color */
 enum { NetSupported, NetWMName, NetWMState,
-       NetWMFullscreen, NetLast };                      /* EWMH atoms */
+       NetWMFullscreen, NetWMWindowOpacity, NetLast };  /* EWMH atoms */
 enum { WMProtocols, WMDelete, WMState, WMLast };        /* default atoms */
 enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
        ClkClientWin, ClkRootWin, ClkLast };             /* clicks */
@@ -93,6 +93,7 @@ struct Client {
 	Client *snext;
 	Monitor *mon;
 	Window win;
+	double opacity;
 };
 
 typedef struct {
@@ -149,6 +150,7 @@ typedef struct {
 	unsigned int tags;
 	Bool isfloating;
 	int monitor;
+	double opacity;
 } Rule;
 
 /* function declarations */
@@ -179,6 +181,7 @@ static void drawsquare(Bool filled, Bool empty, Bool invert, unsigned long col[C
 static void drawtext(const char *text, unsigned long col[ColLast], Bool invert);
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
+static void window_opacity_set(Client *c, double opacity);
 static void focus(Client *c);
 static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
@@ -302,6 +305,7 @@ applyrules(Client *c) {
 			&& (!r->instance || strstr(instance, r->instance)))
 			{
 				c->isfloating = r->isfloating;
+				c->opacity = r->opacity;
 				c->tags |= r->tags;
 				for(m = mons; m && m->num != r->monitor; m = m->next);
 				if(m)
@@ -815,6 +819,15 @@ expose(XEvent *e) {
 		drawbar(m);
 }
 
+window_opacity_set(Client *c, double opacity) {
+	if(opacity >= 0 && opacity <= 1) {
+		unsigned long real_opacity[] = { opacity * 0xffffffff };
+		XChangeProperty(dpy, c->win, netatom[NetWMWindowOpacity], XA_CARDINAL, 32, PropModeReplace, (unsigned char *)real_opacity, 1);
+	}
+	else
+		XDeleteProperty(dpy, c->win, netatom[NetWMWindowOpacity]);
+}
+
 void
 focus(Client *c) {
 	if(!c || !ISVISIBLE(c))
@@ -822,6 +835,10 @@ focus(Client *c) {
 	/* was if(selmon->sel) */
 	if(selmon->sel && selmon->sel != c)
 		unfocus(selmon->sel, False);
+
+	if(selmon->sel && c!=selmon->sel && c && (!root || (selmon->sel->win!=root && c->win!=root)) ) window_opacity_set(selmon->sel, shade);
+	if(c && c!=selmon->sel && (!root || (c->win!=root)) ) window_opacity_set(c, c->opacity);
+
 	if(c) {
 		if(c->mon != selmon)
 			selmon = c->mon;
@@ -837,6 +854,7 @@ focus(Client *c) {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 	selmon->sel = c;
 	drawbars();
+	if(c) window_opacity_set(c, c->opacity);
 }
 
 void
@@ -1106,6 +1124,7 @@ manage(Window w, XWindowAttributes *wa) {
 	updatetitle(c);
 	if(XGetTransientForHint(dpy, w, &trans))
 		t = wintoclient(trans);
+	c->opacity=-1;
 	if(t) {
 		c->mon = t->mon;
 		c->tags = t->tags;
@@ -1537,6 +1556,7 @@ setup(void) {
 	wmatom[WMState] = XInternAtom(dpy, "WM_STATE", False);
 	netatom[NetSupported] = XInternAtom(dpy, "_NET_SUPPORTED", False);
 	netatom[NetWMName] = XInternAtom(dpy, "_NET_WM_NAME", False);
+	netatom[NetWMWindowOpacity] = XInternAtom(dpy, "_NET_WM_WINDOW_OPACITY", False);
 	netatom[NetWMState] = XInternAtom(dpy, "_NET_WM_STATE", False);
 	netatom[NetWMFullscreen] = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN", False);
 	/* init cursors */
