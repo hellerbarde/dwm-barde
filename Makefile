@@ -43,11 +43,11 @@ dist: clean
 	@gzip dwm-${VERSION}.tar
 	@rm -rf dwm-${VERSION}
 
-patch:
-	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
-	@echo applying patch "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
-	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
-	@echo applying patch "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
+#patch:
+#	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
+#	@echo applying patch "${PATCHDIR}/dwm-5.8.2-2-transparency.diff"
+#	@${PATCHCMD} "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
+#	@echo applying patch "${PATCHDIR}/dwm-5.8.2-3-pertag.diff"
 
 install: all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
