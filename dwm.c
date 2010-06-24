@@ -261,6 +261,7 @@ static Monitor *mons = NULL, *selmon = NULL;
 static Window root;
 
 /* configuration, allows nested code to access above variables */
+#include "push.h"
 #include "config.h"
 
 struct Monitor {
@@ -287,6 +288,9 @@ struct Monitor {
 	double mfacts[LENGTH(tags) + 1];
 	Bool showbars[LENGTH(tags) + 1];
 };
+
+/* includes */
+#include "push.c"
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };

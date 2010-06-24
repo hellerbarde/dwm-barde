@@ -1,8 +1,9 @@
-static Client *
-prevtiled(Client *c) {
-	Client *p, *r;
-
-	for(p = selmon->clients, r = NULL; p && p != c; p = p->next)
+static Client*
+prevtiled(Client* c) {
+	Client* p;
+	Client* r;
+	p = (Client*) selmon->clients;
+	for(r = NULL; p && p != c; p = p->next)
 		if(!p->isfloating && ISVISIBLE(p))
 			r = p;
 	return r;
@@ -38,7 +39,7 @@ pushup(const Arg *arg) {
 
 static void
 pushdown(const Arg *arg) {
-	Client *sel = selmon->sel;
+	Client *sel = (Client*) selmon->sel;
 	Client *c;
 
 	if(!sel || sel->isfloating)
