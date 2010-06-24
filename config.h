@@ -21,7 +21,7 @@ static const Bool focusonclick      = True;     /* Change focus only on click */
 
 /* tagging */
 #define MAX_TAGLEN 16
-static char tags[][MAX_TAGLEN] = { "prog", "web", "term", "chat", "file", "music", "", "8", "9" };
+static char tags[][MAX_TAGLEN] = { "prog", "web", "term", "chat", "file", "music", "prog2", "8", "9" };
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor   opacity */
@@ -31,7 +31,7 @@ static const Rule rules[] = {
 };
 
 /* includes */
-#include "push.c"
+//#include "push.c"
 
 /* layout(s) */
 static const float mfact      = 0.6; /* factor of master area size [0.05..0.95] */
