@@ -57,6 +57,12 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
+
+
+/*char tabnamecmd[100]; 
+ sprintf(tabnamecmd, "echo -n | dmenu -fn %s -nb %s -nf %s -sb %s -sf %s", font, colors[0][ColBG], colors[0][ColFG], colors[1][ColBG], colors[1][ColFG]);
+*/
+
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "chromium-browser", NULL };
 
