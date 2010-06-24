@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 #define NUMCOLORS 4 // need at least 3
 static const char colors[NUMCOLORS][ColLast][8] = {
@@ -21,7 +23,7 @@ static const Bool focusonclick      = True;     /* Change focus only on click */
 
 /* tagging */
 #define MAX_TAGLEN 16
-static char tags[][MAX_TAGLEN] = { "prog", "web", "term", "chat", "file", "music", "prog2", "8", "9" };
+static char tags[][MAX_TAGLEN] = { "prog", "web", "term", "chat", "file", "music", "video", "8", "9" };
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor   opacity */
@@ -56,15 +58,12 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
-
-
 /*char tabnamecmd[100]; 
- sprintf(tabnamecmd, "echo -n | dmenu -fn %s -nb %s -nf %s -sb %s -sf %s", font, colors[0][ColBG], colors[0][ColFG], colors[1][ColBG], colors[1][ColFG]);
-*/
-
+ sprintf(tabnamecmd, "echo -n | dmenu -fn %s -nb %s -nf %s -sb %s -sf %s", font, colors[0][ColBG], colors[0][ColFG], colors[1][ColBG], colors[1][ColFG]);*/
+static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "chromium-browser", NULL };
+static const char *shutdowncmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -72,6 +71,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_o,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ 0,                            XF86XK_Sleep, spawn, {.v = shutdowncmd } },
 
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
