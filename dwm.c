@@ -1314,9 +1314,11 @@ nametag(const Arg *arg) {
 	char *cp, name[MAX_TAGLEN];
 	FILE *fp;
 	int i;
+	char tabnamecmd[125]; 
+	i=sprintf(tabnamecmd, "echo -n | dmenu -fn \"%s\" -nb \"%s\" -nf \"%s\" -sb \"%s\" -sf \"%s\"", font, colors[0][ColBG], colors[0][ColFG], colors[1][ColBG], colors[1][ColFG]);
 
-	if(!(fp = (FILE*)popen("echo -n | dmenu", "r")))
-		fprintf(stderr, "dwm: Could not popen 'echo -n | dmenu'\n");
+	if(!(fp = (FILE*)popen(tabnamecmd, "r")))
+		fprintf(stderr, "dwm: Could not popen '%s'\n", tabnamecmd);
 	cp = fgets(name, MAX_TAGLEN, fp);
 	pclose(fp);
 	if(cp == NULL)
