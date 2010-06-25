@@ -61,7 +61,7 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "chromium-browser", NULL };
-static const char *shutdowncmd[] = { "python", "/home/phil/bin/shut    down-dmenu.py", NULL };
+static const char *shutdowncmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
