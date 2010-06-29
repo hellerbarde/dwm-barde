@@ -70,7 +70,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_o,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ 0,                            XF86XK_Sleep, spawn, {.v = shutdowncmd } },
+	{ 0,                            XF86XK_Launch1, spawn, {.v = shutdowncmd } },
 
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
