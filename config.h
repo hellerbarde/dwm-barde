@@ -6,14 +6,15 @@
 #define NUMCOLORS 4 // need at least 3
 static const char colors[NUMCOLORS][ColLast][8] = {
 	// border   foreground  background
-	{ "#404040", "#dddddd", "#404040" },  // 0 = normal
-	{ "#222222", "#222222", "#4161b7" },  // 1 = selected
+	{ "#333333", "#dddddd", "#333333" },  // 0 = normal
+	{ "#222222", "#222222", "#4d73d9" },  // 1 = selected
 	{ "#0066ff", "#0066ff", "#ffffff" },  // 2 = urgent/warning
 	{ "#ff0000", "#ffffff", "#ff0000" },  // 3 = error
 	
 	// add more here
 };
-static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
+static const char font[]            = "-*-dina-medium-r-*-*-*-80-*-*-*-70-*-*";
+//static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const double shade           = 0.7;      /* opacity of unfocussed clients */
