@@ -64,8 +64,8 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][Col
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "chromium-browser", NULL };
 static const char *shutdowncmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
-static const char *audiolowercmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
-static const char *audioraisecmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
+static const char *audiolowercmd[] = { "amixer", "set", "Master,0", "3%-,3%-", "unmute", NULL };
+static const char *audiolowercmd[] = { "amixer", "set", "Master,0", "3%+,3%+", "unmute", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -74,8 +74,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_o,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ 0,                            XF86XK_Launch1, spawn, {.v = shutdowncmd } },
-	{ 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = shutdowncmd } },
-	{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = shutdowncmd } },
+	{ 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = audioraisecmd } },
+	{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = audiolowercmd } },
 
 
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
