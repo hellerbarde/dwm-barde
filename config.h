@@ -65,7 +65,7 @@ static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "chromium-browser", NULL };
 static const char *shutdowncmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
 static const char *audiolowercmd[] = { "amixer", "set", "Master,0", "3%-,3%-", "unmute", NULL };
-static const char *audiolowercmd[] = { "amixer", "set", "Master,0", "3%+,3%+", "unmute", NULL };
+static const char *audioraisecmd[] = { "amixer", "set", "Master,0", "3%+,3%+", "unmute", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
