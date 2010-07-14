@@ -18,7 +18,7 @@ static const char font[]            = "-artwiz-cure-medium-r-*-*-*-*-*-*-*-*-iso
 //static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const double shade           = 0.7;      /* opacity of unfocussed clients */
+static const double shade           = 0.9;      /* opacity of unfocussed clients */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 static const Bool focusonclick      = True;     /* Change focus only on click */
@@ -64,6 +64,8 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][Col
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "chromium-browser", NULL };
 static const char *shutdowncmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
+static const char *audiolowercmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
+static const char *audioraisecmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -72,6 +74,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_o,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ 0,                            XF86XK_Launch1, spawn, {.v = shutdowncmd } },
+	{ 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = shutdowncmd } },
+	{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = shutdowncmd } },
+
 
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
