@@ -29,8 +29,9 @@ static char tags[][MAX_TAGLEN] = { "prog", "web", "term", "chat", "file", "music
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor   opacity */
-	{ "Gimp",     NULL,       NULL,       0,            True,        -1,       -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1,       -1 },
+	//{ "Gimp",     NULL,       NULL,       0,            True,        -1,       -1 },
+	{ "deadbeef", "deadbeef", NULL,       1 << 5,       False,        0,       -1 },
+	{ "chrome",   "chrome",   NULL,       1 << 1,       False,        0,       -1 },
 	{ "URxvt",    NULL,       NULL,       0,            False,       -1,       0.95  },
 };
 
