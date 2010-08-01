@@ -18,7 +18,7 @@ static const char font[]            = "-artwiz-cure-medium-r-*-*-*-*-*-*-*-*-iso
 //static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const double shade           = 0.9;      /* opacity of unfocussed clients */
+static const double shade           = 0.6;      /* opacity of unfocussed clients */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 static const Bool focusonclick      = True;     /* Change focus only on click */
@@ -29,10 +29,10 @@ static char tags[][MAX_TAGLEN] = { "prog", "web", "term", "chat", "file", "music
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor   opacity */
-	//{ "Gimp",     NULL,       NULL,       0,            True,        -1,       -1 },
-	{ "deadbeef", "deadbeef", NULL,       1 << 5,       False,        0,       -1 },
-	{ "chrome",   "chrome",   NULL,       1 << 1,       False,        0,       -1 },
-	{ "URxvt",    NULL,       NULL,       0,            False,       -1,       0.95  },
+	//{ "Gimp",     NULL,       NULL,       0,            True,         -1,       -1 },
+	{ "Deadbeef",   NULL,       NULL,       1 << 5,       False,        -1,       1 },
+	{ "Chromium",   NULL,       NULL,       1 << 1,       False,        -1,       1 },
+	{ "URxvt",      NULL,       NULL,       0,            False,        -1,       0.95  },
 };
 
 /* includes */
@@ -63,7 +63,7 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
-static const char *browsercmd[]  = { "chromium-browser", NULL };
+static const char *browsercmd[]  = { "chromium", NULL };
 static const char *shutdowncmd[] = { "python", "/home/phil/bin/shutdown-dmenu.py", NULL };
 static const char *audiolowercmd[] = { "amixer", "set", "Master,0", "3%-,3%-", "unmute", NULL };
 static const char *audioraisecmd[] = { "amixer", "set", "Master,0", "3%+,3%+", "unmute", NULL };
