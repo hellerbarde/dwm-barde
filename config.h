@@ -7,7 +7,7 @@
 static const char colors[NUMCOLORS][ColLast][8] = {
 	// border   foreground  background
 	{ "#333333", "#dddddd", "#333333" },  // 0 = normal
-	{ "#222222", "#222222", "#4d73d9" },  // 1 = selected
+	{ "#222222", "#222222", "#3168ba" },  // 1 = selected
 	{ "#0066ff", "#0066ff", "#ffffff" },  // 2 = urgent/warning
 	{ "#ff0000", "#ffffff", "#ff0000" },  // 3 = error
 	
@@ -18,21 +18,25 @@ static const char font[]            = "-artwiz-cure-medium-r-*-*-*-*-*-*-*-*-iso
 //static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const double shade           = 0.6;      /* opacity of unfocussed clients */
+static const double shade           = 1.0;      /* opacity of unfocussed clients */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 static const Bool focusonclick      = True;     /* Change focus only on click */
 
 /* tagging */
 #define MAX_TAGLEN 16
-static char tags[][MAX_TAGLEN] = { "prog", "web", "term", "chat", "file", "music", "video", "8", "9" };
+static char tags[][MAX_TAGLEN] = { "prog", "web", "pics", "chat", "file", "music", "video", "firefox", "wlan" };
 
 static const Rule rules[] = {
-	/* class      instance    title       tags mask     isfloating   monitor   opacity */
-	//{ "Gimp",     NULL,       NULL,       0,            True,         -1,       -1 },
+	/* class        instance    title       tags mask     isfloating   monitor   opacity */
+	{ "Gimp",       NULL,       NULL,       1 << 2,       True,         -1,       -1 },
 	{ "Deadbeef",   NULL,       NULL,       1 << 5,       False,        -1,       1 },
 	{ "Chromium",   NULL,       NULL,       1 << 1,       False,        -1,       1 },
-	{ "URxvt",      NULL,       NULL,       0,            False,        -1,       0.95  },
+	{ "URxvt",      NULL,       NULL,       0,            False,        -1,       1 },
+	{ "Wicd-client.py", NULL,   NULL,       1 << 8,       False,        -1,       1 },
+	{ "Namoroka",   NULL,       NULL,       1 << 7,       False,        -1,       1 },
+	{ "Dolphin",    NULL,       NULL,       1 << 4,       False,        -1,       1 },
+	{ "Pidgin",     NULL,       NULL,       1 << 3,       False,        -1,       1 },
 };
 
 /* includes */
